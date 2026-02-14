@@ -136,6 +136,12 @@ pip install -r requirements.txt
 python main.py                  # → http://localhost:8000
 ```
 
+
+```zsh
+python3 -m venv venv
+source venv/bin/activate
+```
+
 SQLite database is created automatically on first startup. No manual DB setup needed.
 
 ### 2. Frontend
