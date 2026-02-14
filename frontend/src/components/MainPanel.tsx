@@ -11,12 +11,7 @@ interface Props {
 }
 
 export default function MainPanel({
-  stats,
-  loading,
-  error,
-  brief,
-  onGenerate,
-  onFeedback,
+  stats, loading, error, brief, onGenerate, onFeedback,
 }: Props) {
   const [feedback, setFeedback] = useState('')
 
@@ -31,22 +26,16 @@ export default function MainPanel({
           <div className="label">Total Users</div>
         </div>
         <div className="stat-card">
-          <div className="value" style={{ color: 'var(--success)' }}>
-            {stats.signed_up}
-          </div>
+          <div className="value" style={{ color: 'var(--success)' }}>{stats.signed_up}</div>
           <div className="label">Signed Up</div>
         </div>
         <div className="stat-card">
-          <div className="value" style={{ color: 'var(--warning)' }}>
-            {stats.not_engaged}
-          </div>
+          <div className="value" style={{ color: 'var(--warning)' }}>{stats.not_engaged}</div>
           <div className="label">Not Engaged</div>
         </div>
         <div className="stat-card">
           <div className="value" style={{ color: 'var(--accent)' }}>
-            {stats.total > 0
-              ? `${((stats.signed_up / stats.total) * 100).toFixed(1)}%`
-              : '—'}
+            {stats.total > 0 ? `${((stats.signed_up / stats.total) * 100).toFixed(1)}%` : '—'}
           </div>
           <div className="label">Conversion Rate</div>
         </div>
@@ -57,9 +46,7 @@ export default function MainPanel({
         <h3>Source Breakdown</h3>
         <div className="breakdown">
           {Object.entries(stats.by_source).map(([k, v]) => (
-            <span className="tag" key={k}>
-              <b>{v}</b> {k}
-            </span>
+            <span className="tag" key={k}><b>{v}</b> {k}</span>
           ))}
         </div>
       </div>
@@ -71,14 +58,14 @@ export default function MainPanel({
         disabled={loading}
         onClick={onGenerate}
       >
-        {loading ? '🔄 Agents are analyzing…' : '🚀 Generate 1-Page Meeting Brief'}
+        {loading ? '🔄 Agents analyzing…' : '🚀 Generate Meeting Brief'}
       </button>
 
       {loading && (
         <div>
           <div className="spinner" />
           <p className="loading-text">
-            Running 4 AI agents in parallel — ICP, Engagement, Messaging, Critic…
+            Running 4 AI agents — ICP, Segmentation, Messaging, Critic…
           </p>
         </div>
       )}
@@ -89,7 +76,7 @@ export default function MainPanel({
         </div>
       )}
 
-      {/* Brief Executive Summary */}
+      {/* Executive Summary */}
       {brief && (
         <div className="card">
           <h3>📋 Executive Summary</h3>
@@ -114,17 +101,14 @@ export default function MainPanel({
         <div className="card">
           <h3>🧪 Growth Hypotheses</h3>
           <ul>
-            {brief.content.messaging.growth_hypotheses.map(
-              (h: any, i: number) => (
-                <li key={i}>
-                  <strong>{h.hypothesis}</strong>
-                  <br />
-                  <span style={{ fontSize: '0.78rem' }}>
-                    Impact: {h.expected_impact} · Effort: {h.effort}
-                  </span>
-                </li>
-              )
-            )}
+            {brief.content.messaging.growth_hypotheses.map((h: any, i: number) => (
+              <li key={i}>
+                <strong>{h.hypothesis}</strong><br />
+                <span style={{ fontSize: '0.78rem' }}>
+                  Impact: {h.expected_impact} · Effort: {h.effort}
+                </span>
+              </li>
+            ))}
           </ul>
         </div>
       )}
@@ -145,10 +129,7 @@ export default function MainPanel({
             className="btn btn-secondary"
             style={{ marginTop: 8 }}
             disabled={loading || !feedback.trim()}
-            onClick={() => {
-              onFeedback(feedback)
-              setFeedback('')
-            }}
+            onClick={() => { onFeedback(feedback); setFeedback('') }}
           >
             ♻️ Regenerate with Feedback
           </button>

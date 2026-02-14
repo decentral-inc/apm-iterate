@@ -6,8 +6,8 @@ interface Props {
 }
 
 export default function LeftPanel({ stats, agentOutputs }: Props) {
-  const icp = agentOutputs?.icp_analyzer
-  const engagement = agentOutputs?.engagement_analyzer
+  const icp = agentOutputs?.icp_agent
+  const segmentation = agentOutputs?.segmentation_agent
 
   return (
     <div className="panel">
@@ -47,45 +47,35 @@ export default function LeftPanel({ stats, agentOutputs }: Props) {
         </div>
       </div>
 
-      {/* ICP Insights (populated after brief generation) */}
+      {/* ICP Insights — populated after brief generation */}
       {icp && (
         <div className="card">
           <h3>🎯 ICP Insights</h3>
           <p>{icp.icp_summary}</p>
           {icp.primary_segment && (
             <div className="breakdown" style={{ marginTop: 10 }}>
-              <span className="tag">
-                <b>Size:</b> {icp.primary_segment.company_size}
-              </span>
-              <span className="tag">
-                <b>Role:</b> {icp.primary_segment.role}
-              </span>
-              <span className="tag">
-                <b>Industry:</b> {icp.primary_segment.industry}
-              </span>
+              <span className="tag"><b>Size:</b> {icp.primary_segment.company_size}</span>
+              <span className="tag"><b>Role:</b> {icp.primary_segment.role}</span>
+              <span className="tag"><b>Industry:</b> {icp.primary_segment.industry}</span>
             </div>
           )}
-          {icp.signals && icp.signals.length > 0 && (
+          {icp.signals?.length > 0 && (
             <ul style={{ marginTop: 10 }}>
-              {icp.signals.map((s: string, i: number) => (
-                <li key={i}>{s}</li>
-              ))}
+              {icp.signals.map((s: string, i: number) => <li key={i}>{s}</li>)}
             </ul>
           )}
         </div>
       )}
 
-      {/* Engagement Insights */}
-      {engagement && (
+      {/* Segmentation Insights */}
+      {segmentation && (
         <div className="card">
           <h3>📉 Engagement Gaps</h3>
-          <p>{engagement.engagement_summary}</p>
-          {engagement.at_risk_segments && (
+          <p>{segmentation.engagement_summary}</p>
+          {segmentation.at_risk_segments && (
             <div className="breakdown" style={{ marginTop: 10 }}>
-              {engagement.at_risk_segments.map((s: string, i: number) => (
-                <span className="tag" key={i} style={{ borderColor: 'var(--danger)' }}>
-                  {s}
-                </span>
+              {segmentation.at_risk_segments.map((s: string, i: number) => (
+                <span className="tag" key={i} style={{ borderColor: 'var(--danger)' }}>{s}</span>
               ))}
             </div>
           )}

@@ -21,7 +21,7 @@ body {
   min-height: 100vh;
 }
 
-/* ── Layout ── */
+/* Header */
 .app-header {
   display: flex;
   align-items: center;
@@ -40,6 +40,7 @@ body {
   margin-left: 8px;
 }
 
+/* 3-column layout */
 .layout {
   display: grid;
   grid-template-columns: 300px 1fr 340px;
@@ -47,13 +48,11 @@ body {
   background: var(--border);
   min-height: calc(100vh - 57px);
 }
-
 .panel {
   background: var(--surface);
   padding: 20px;
   overflow-y: auto;
 }
-
 .panel h2 {
   font-size: 0.85rem;
   text-transform: uppercase;
@@ -62,7 +61,7 @@ body {
   margin-bottom: 16px;
 }
 
-/* ── Cards ── */
+/* Cards */
 .card {
   background: var(--surface2);
   border: 1px solid var(--border);
@@ -74,7 +73,7 @@ body {
 .card p, .card li { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
 .card ul { padding-left: 18px; }
 
-/* ── Stat Grid ── */
+/* Stat Grid */
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -88,18 +87,10 @@ body {
   padding: 16px;
   text-align: center;
 }
-.stat-card .value {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent2);
-}
-.stat-card .label {
-  font-size: 0.75rem;
-  color: var(--muted);
-  margin-top: 4px;
-}
+.stat-card .value { font-size: 2rem; font-weight: 700; color: var(--accent2); }
+.stat-card .label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
 
-/* ── Buttons ── */
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -115,34 +106,17 @@ body {
 }
 .btn:hover { opacity: 0.85; }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
 .btn-primary { background: var(--accent); color: #fff; }
 .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
 .btn-success { background: var(--success); color: #fff; }
-
 .btn-group { display: flex; gap: 8px; margin-bottom: 20px; }
 
-/* ── Confidence Meter ── */
-.confidence {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-.confidence-bar {
-  flex: 1;
-  height: 8px;
-  background: var(--surface2);
-  border-radius: 4px;
-  overflow: hidden;
-}
-.confidence-fill {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 0.4s ease;
-}
+/* Confidence */
+.confidence { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.confidence-bar { flex: 1; height: 8px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+.confidence-fill { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
 
-/* ── Textarea ── */
+/* Textarea */
 textarea {
   width: 100%;
   padding: 12px;
@@ -157,7 +131,7 @@ textarea {
 }
 textarea:focus { outline: none; border-color: var(--accent); }
 
-/* ── Breakdown ── */
+/* Breakdown tags */
 .breakdown { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .breakdown .tag {
   font-size: 0.72rem;
@@ -169,7 +143,7 @@ textarea:focus { outline: none; border-color: var(--accent); }
 }
 .breakdown .tag b { color: var(--text); margin-right: 4px; }
 
-/* ── Loading ── */
+/* Spinner */
 .spinner {
   border: 3px solid var(--surface2);
   border-top-color: var(--accent);
@@ -180,15 +154,9 @@ textarea:focus { outline: none; border-color: var(--accent); }
   margin: 20px auto;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 8px; }
 
-.loading-text {
-  text-align: center;
-  color: var(--muted);
-  font-size: 0.85rem;
-  margin-top: 8px;
-}
-
-/* ── Empty / Connect State ── */
+/* Connect Screen */
 .connect-screen {
   display: flex;
   flex-direction: column;

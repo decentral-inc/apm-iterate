@@ -1,4 +1,4 @@
-/* ── API client for the Node backend ── */
+/* ── API client for the FastAPI backend ── */
 
 const BASE = '/api';
 
@@ -9,25 +9,12 @@ async function request<T>(url: string, opts?: RequestInit): Promise<T> {
   });
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new Error(body.error || res.statusText);
+    throw new Error(body.detail || body.error || res.statusText);
   }
   return res.json();
 }
 
 /* ── Types ── */
-export interface CrmUser {
-  id: string;
-  email: string;
-  name: string;
-  company: string;
-  company_size: string;
-  role: string;
-  industry: string;
-  source: string;
-  status: string;
-  signed_up_at: string | null;
-  last_active: string | null;
-}
 
 export interface Stats {
   total: number;
@@ -37,6 +24,12 @@ export interface Stats {
   by_company_size: Record<string, number>;
   by_role: Record<string, number>;
   by_industry: Record<string, number>;
+}
+
+export interface MockCrmResponse {
+  message: string;
+  inserted: number;
+  stats: Stats;
 }
 
 export interface Brief {
@@ -51,15 +44,12 @@ export interface Brief {
 }
 
 /* ── Endpoints ── */
-export const connectCrm = (source: 'salesforce' | 'hubspot') =>
-  request<{ message: string; stats: Stats }>(`/connect/${source}`, { method: 'POST' });
 
-export const fetchStats = () => request<Stats>('/stats');
+export const mockConnectCrm = () =>
+  request<MockCrmResponse>('/mock-crm', { method: 'POST' });
 
-export const fetchUsers = (status?: string) =>
-  request<{ users: CrmUser[]; count: number }>(
-    `/users${status ? `?status=${status}` : ''}`
-  );
+export const fetchMetrics = () =>
+  request<Stats>('/metrics');
 
 export const generateBrief = () =>
   request<Brief>('/generate-brief', { method: 'POST' });
@@ -70,4 +60,5 @@ export const submitFeedback = (brief_id: string, feedback: string) =>
     body: JSON.stringify({ brief_id, feedback }),
   });
 
-export const fetchLatestBrief = () => request<Brief>('/brief');
+export const fetchLatestBrief = () =>
+  request<Brief>('/brief');

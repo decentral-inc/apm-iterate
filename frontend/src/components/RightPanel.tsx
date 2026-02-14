@@ -22,8 +22,8 @@ export default function RightPanel({ brief }: Props) {
     )
   }
 
-  const critic = brief.agent_outputs?.critic
-  const messaging = brief.agent_outputs?.messaging_strategist
+  const critic = brief.agent_outputs?.critic_agent
+  const messaging = brief.agent_outputs?.messaging_agent
   const score = brief.confidence_score
 
   return (
@@ -40,10 +40,7 @@ export default function RightPanel({ brief }: Props) {
           <div className="confidence-bar">
             <div
               className="confidence-fill"
-              style={{
-                width: `${score * 100}%`,
-                background: confidenceColor(score),
-              }}
+              style={{ width: `${score * 100}%`, background: confidenceColor(score) }}
             />
           </div>
         </div>
@@ -55,22 +52,14 @@ export default function RightPanel({ brief }: Props) {
           <h3>🎯 ICP Summary</h3>
           {brief.content.icp.primary_segment && (
             <div className="breakdown">
-              <span className="tag">
-                <b>Size:</b> {brief.content.icp.primary_segment.company_size}
-              </span>
-              <span className="tag">
-                <b>Role:</b> {brief.content.icp.primary_segment.role}
-              </span>
-              <span className="tag">
-                <b>Industry:</b> {brief.content.icp.primary_segment.industry}
-              </span>
+              <span className="tag"><b>Size:</b> {brief.content.icp.primary_segment.company_size}</span>
+              <span className="tag"><b>Role:</b> {brief.content.icp.primary_segment.role}</span>
+              <span className="tag"><b>Industry:</b> {brief.content.icp.primary_segment.industry}</span>
             </div>
           )}
           {brief.content.icp.signals && (
             <ul style={{ marginTop: 8 }}>
-              {brief.content.icp.signals.map((s: string, i: number) => (
-                <li key={i}>{s}</li>
-              ))}
+              {brief.content.icp.signals.map((s: string, i: number) => <li key={i}>{s}</li>)}
             </ul>
           )}
         </div>
@@ -113,26 +102,18 @@ export default function RightPanel({ brief }: Props) {
 
           {critic.strengths && (
             <>
-              <p style={{ color: 'var(--success)', fontWeight: 600, marginTop: 8 }}>
-                Strengths
-              </p>
+              <p style={{ color: 'var(--success)', fontWeight: 600, marginTop: 8 }}>Strengths</p>
               <ul>
-                {critic.strengths.map((s: string, i: number) => (
-                  <li key={i}>{s}</li>
-                ))}
+                {critic.strengths.map((s: string, i: number) => <li key={i}>{s}</li>)}
               </ul>
             </>
           )}
 
           {critic.weaknesses && (
             <>
-              <p style={{ color: 'var(--danger)', fontWeight: 600, marginTop: 8 }}>
-                Weaknesses
-              </p>
+              <p style={{ color: 'var(--danger)', fontWeight: 600, marginTop: 8 }}>Weaknesses</p>
               <ul>
-                {critic.weaknesses.map((w: string, i: number) => (
-                  <li key={i}>{w}</li>
-                ))}
+                {critic.weaknesses.map((w: string, i: number) => <li key={i}>{w}</li>)}
               </ul>
             </>
           )}
@@ -153,11 +134,11 @@ export default function RightPanel({ brief }: Props) {
       )}
 
       {/* Engagement Drop-offs */}
-      {brief.content?.engagement?.drop_off_points && (
+      {brief.content?.segmentation?.drop_off_points && (
         <div className="card">
           <h3>📉 Engagement Drop-offs</h3>
           <ul>
-            {brief.content.engagement.drop_off_points.map((d: any, i: number) => (
+            {brief.content.segmentation.drop_off_points.map((d: any, i: number) => (
               <li key={i}>
                 <strong>{d.stage}</strong> ({d.severity}): {d.description}
               </li>

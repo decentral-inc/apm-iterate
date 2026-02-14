@@ -7,10 +7,9 @@ import RightPanel from './RightPanel'
 
 interface Props {
   initialStats: Stats
-  source: string
 }
 
-export default function Dashboard({ initialStats, source }: Props) {
+export default function Dashboard({ initialStats }: Props) {
   const [stats] = useState<Stats>(initialStats)
   const [brief, setBrief] = useState<Brief | null>(null)
   const [loading, setLoading] = useState(false)
@@ -48,7 +47,7 @@ export default function Dashboard({ initialStats, source }: Props) {
       <header className="app-header">
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <h1>🧠 AI Product Intelligence</h1>
-          <span className="badge">{source}</span>
+          <span className="badge">mock CRM</span>
         </div>
         <span style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>
           {stats.total} users imported

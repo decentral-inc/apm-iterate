@@ -6,19 +6,17 @@ import type { Stats } from './api/client'
 export default function App() {
   const [connected, setConnected] = useState(false)
   const [stats, setStats] = useState<Stats | null>(null)
-  const [source, setSource] = useState<'salesforce' | 'hubspot'>('salesforce')
 
   if (!connected) {
     return (
       <ConnectScreen
-        onConnected={(s, src) => {
+        onConnected={(s) => {
           setStats(s)
-          setSource(src)
           setConnected(true)
         }}
       />
     )
   }
 
-  return <Dashboard initialStats={stats!} source={source} />
+  return <Dashboard initialStats={stats!} />
 }

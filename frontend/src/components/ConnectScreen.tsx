@@ -1,24 +1,24 @@
 import { useState } from 'react'
-import { connectCrm, type Stats } from '../api/client'
+import { mockConnectCrm, type Stats } from '../api/client'
 
 interface Props {
-  onConnected: (stats: Stats, source: 'salesforce' | 'hubspot') => void
+  onConnected: (stats: Stats) => void
 }
 
 export default function ConnectScreen({ onConnected }: Props) {
-  const [loading, setLoading] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleConnect = async (source: 'salesforce' | 'hubspot') => {
-    setLoading(source)
+  const handleConnect = async () => {
+    setLoading(true)
     setError(null)
     try {
-      const result = await connectCrm(source)
-      onConnected(result.stats, source)
+      const result = await mockConnectCrm()
+      onConnected(result.stats)
     } catch (e: any) {
       setError(e.message)
     } finally {
-      setLoading(null)
+      setLoading(false)
     }
   }
 
@@ -29,22 +29,9 @@ export default function ConnectScreen({ onConnected }: Props) {
         Connect your CRM to populate user data and unlock AI-powered meeting
         briefs, ICP analysis, and growth hypotheses.
       </p>
-      <div className="btn-group">
-        <button
-          className="btn btn-primary"
-          disabled={!!loading}
-          onClick={() => handleConnect('salesforce')}
-        >
-          {loading === 'salesforce' ? '⏳ Connecting…' : '☁️ Connect Salesforce'}
-        </button>
-        <button
-          className="btn btn-success"
-          disabled={!!loading}
-          onClick={() => handleConnect('hubspot')}
-        >
-          {loading === 'hubspot' ? '⏳ Connecting…' : '🟠 Connect HubSpot'}
-        </button>
-      </div>
+      <button className="btn btn-primary" disabled={loading} onClick={handleConnect}>
+        {loading ? '⏳ Connecting…' : '🔗 Mock Connect CRM'}
+      </button>
       {error && <p style={{ color: 'var(--danger)' }}>Error: {error}</p>}
     </div>
   )
