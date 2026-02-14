@@ -1,0 +1,202 @@
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface2: #242834;
+  --border: #2d3141;
+  --text: #e1e4ed;
+  --muted: #8b8fa3;
+  --accent: #6c5ce7;
+  --accent2: #00cec9;
+  --danger: #ff6b6b;
+  --success: #00b894;
+  --warning: #fdcb6e;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── Layout ── */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.app-header h1 { font-size: 1.25rem; font-weight: 700; }
+.app-header .badge {
+  font-size: 0.7rem;
+  background: var(--accent);
+  padding: 2px 8px;
+  border-radius: 99px;
+  color: #fff;
+  margin-left: 8px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 300px 1fr 340px;
+  gap: 1px;
+  background: var(--border);
+  min-height: calc(100vh - 57px);
+}
+
+.panel {
+  background: var(--surface);
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.panel h2 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.card h3 { font-size: 0.95rem; margin-bottom: 8px; }
+.card p, .card li { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+.card ul { padding-left: 18px; }
+
+/* ── Stat Grid ── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.stat-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+.stat-card .value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent2);
+}
+.stat-card .label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.btn:hover { opacity: 0.85; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+.btn-success { background: var(--success); color: #fff; }
+
+.btn-group { display: flex; gap: 8px; margin-bottom: 20px; }
+
+/* ── Confidence Meter ── */
+.confidence {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.confidence-bar {
+  flex: 1;
+  height: 8px;
+  background: var(--surface2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.confidence-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+/* ── Textarea ── */
+textarea {
+  width: 100%;
+  padding: 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 0.85rem;
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+textarea:focus { outline: none; border-color: var(--accent); }
+
+/* ── Breakdown ── */
+.breakdown { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.breakdown .tag {
+  font-size: 0.72rem;
+  background: var(--bg);
+  padding: 3px 10px;
+  border-radius: 99px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.breakdown .tag b { color: var(--text); margin-right: 4px; }
+
+/* ── Loading ── */
+.spinner {
+  border: 3px solid var(--surface2);
+  border-top-color: var(--accent);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin: 20px auto;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-text {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+/* ── Empty / Connect State ── */
+.connect-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 20px;
+  text-align: center;
+}
+.connect-screen h1 { font-size: 2rem; }
+.connect-screen p { color: var(--muted); max-width: 420px; }
