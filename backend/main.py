@@ -1,5 +1,5 @@
 """
-AI Product Intelligence System — FastAPI entrypoint.
+APM System — FastAPI entrypoint.
 Single-service backend: API + multi-agent orchestration + SQLite.
 """
 
@@ -14,7 +14,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from db import init_db
-from routes import crm_router, metrics_router, briefs_router
+from routes import crm_router, metrics_router, briefs_router, interviews_router
 
 
 @asynccontextmanager
@@ -25,7 +25,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="AI Product Intelligence",
+    title="APM",
     version="1.0.0",
     lifespan=lifespan,
 )
@@ -49,6 +49,7 @@ async def health():
 app.include_router(crm_router, prefix="/api", tags=["CRM"])
 app.include_router(metrics_router, prefix="/api", tags=["Metrics"])
 app.include_router(briefs_router, prefix="/api", tags=["Briefs"])
+app.include_router(interviews_router, prefix="/api", tags=["Interviews"])
 
 
 if __name__ == "__main__":

@@ -13,6 +13,7 @@ from sqlalchemy import select
 
 from db.models import User, Brief
 from agents.orchestrator import orchestrate, orchestrate_stream
+from services.interview_service import get_interview_context_for_agents
 
 logger = logging.getLogger(__name__)
 
@@ -76,8 +77,9 @@ async def generate_brief(db: AsyncSession) -> Brief:
     """Run the full multi-agent pipeline and persist the brief."""
     users = await _load_users(db)
     stats = await _load_stats(db)
+    interview_context = get_interview_context_for_agents()
 
-    result = await orchestrate(users=users, stats=stats)
+    result = await orchestrate(users=users, stats=stats, interview_context=interview_context)
 
     brief = Brief(
         content=result["brief"],
@@ -99,10 +101,11 @@ async def generate_brief_stream(db: AsyncSession) -> AsyncGenerator[str, None]:
     """
     users = await _load_users(db)
     stats = await _load_stats(db)
+    interview_context = get_interview_context_for_agents()
 
     final_result = None
 
-    async for event in orchestrate_stream(users=users, stats=stats):
+    async for event in orchestrate_stream(users=users, stats=stats, interview_context=interview_context):
         event_type = event.get("event", "info")
 
         if event_type == "complete":

@@ -1,0 +1,58 @@
+
+Usability Test: Team Collaboration & Insight Sharing
+
+Session Context
+
+Goal: Evaluate the collaboration features for a Design Lead sharing research insights with cross-functional teams.
+
+Participant Profile: "Taylor" (27, Design Lead at a 30-person AI/ML startup).
+
+Interviewer: Product Manager (PM).
+
+Duration: Condensed representation of a 18-minute session.
+
+Transcript: Collaboration Features Test
+[00:00] PM: Taylor, I'd like you to try sharing some insights with your team using the tool. Imagine you've found something interesting and need your PM and engineering lead to see it.
+
+[00:30] Taylor: Cool. I'm looking at a chart that shows user drop-off at the onboarding step. I want to share this specific chart with my PM, not the whole dashboard. Is there a way to share just this chart?
+
+[01:00] Taylor: I see a "..." menu on the chart. Options are "Maximize," "Edit," "Delete." No share option. Hmm. Let me try the main share button at the top… that shares the entire dashboard URL. I don't want to share everything, just this one finding.
+
+[01:40] PM: Why is sharing a single chart important?
+
+[01:50] Taylor: Context. If I share the whole dashboard, my PM will look at 15 charts and miss the important one. I need to be able to say "look at THIS, specifically." It's like highlighting a paragraph in a doc vs sending the entire doc.
+
+[02:30] Taylor: Okay, let me try a different approach. Can I add a comment or annotation? I want to write "Look at the 40% drop-off after signup — this correlates with our password complexity increase from last sprint."
+
+[03:00] Taylor: No commenting system. No annotations. I can't even add a text box to the dashboard. So there's no way to add context to the data.
+
+[03:30] Taylor: Let me try the Slack integration. I heard there's one. Settings > Integrations > Slack. "Connect to Slack." Installing… authorized. Now it says I can "Send weekly digest to a channel." But I want to send a specific insight RIGHT NOW, not a weekly digest.
+
+[04:15] PM: What's your ideal workflow here?
+
+[04:20] Taylor: Hover over a chart, click share, pick Slack channel, optionally add a note, send. The recipient gets the chart image plus my note. Done. Like what Figma does with design reviews.
+
+[05:00] Taylor: I also want to @mention my PM and engineer in the tool itself. Like, tag them on this specific data point so they get a notification. Then we can have a threaded discussion right here, instead of going to Slack, losing context, coming back.
+
+[05:45] PM: Would your team pay more for collaboration features like this?
+
+[05:55] Taylor: We're paying $60/month for Notion where we currently dump our analytics screenshots and discuss them. We pay $25/month for Loom for recording analysis walkthroughs. If your tool had built-in commenting and sharing, we could drop both. That's $85/month savings, and the workflow would be better.
+
+[06:45] Taylor: Another thing — I want to create a "Research Board" where I can collect multiple charts and insights into a narrative. Like a mini-presentation. Right now I'm screenshotting your charts, pasting them into Google Slides, and presenting. If I could build a narrative view inside the tool, that would be amazing.
+
+[07:30] PM: That's a great concept. Like a story mode for data?
+
+[07:35] Taylor: Exactly! Notion has this with their database views. Amplitude has their "Notebooks." I want to sequence three charts with text blocks between them that tell a story: "Here's what we saw → Here's why → Here's what we should do."
+
+[08:15] PM: Rating the collaboration experience, 1 to 5?
+
+[08:20] Taylor: A 1.5. Collaboration is basically non-existent. The tool is built for a single person staring at a screen. Modern teams need shared context. Without it, data stays siloed with whoever has the login.
+
+Key Insights for Product Manager
+Friction Point 1 (Granular Sharing): Can only share entire dashboard, not individual charts. Action: Add per-chart share button with Slack/email options.
+
+Friction Point 2 (Annotations): No commenting or context layer. Action: Add inline commenting system with @mentions and threading.
+
+Friction Point 3 (Narrative Mode): No way to sequence insights into a story. Action: Build "Insight Board" or notebook feature for data storytelling.
+
+Bottom Line Impact: $85/month replacement opportunity (Notion + Loom). Collaboration features determine whether tool is used by 1 person or entire team — directly affects seat expansion.

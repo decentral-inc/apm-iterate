@@ -1,0 +1,56 @@
+
+Usability Test: Customer Health Scoring Workflow
+
+Session Context
+
+Goal: Test how a Customer Success lead uses the product for customer health monitoring and churn prevention.
+
+Participant Profile: "Priya" (33, CS Team Lead at a 150-person E-commerce SaaS company).
+
+Interviewer: Product Manager (PM).
+
+Duration: Condensed representation of a 20-minute session.
+
+Transcript: Customer Health Scoring Test
+[00:00] PM: Priya, today I'd love to see how you'd use this tool to monitor customer health and identify at-risk accounts. Go ahead and walk me through your workflow.
+
+[00:30] Priya: Sure. I'm looking at the customer list. I have 340 accounts. I need to quickly find which ones are at risk this week. I see a "Health Score" column but all the scores look similar — everything is between 60 and 80. That doesn't help me prioritize.
+
+[01:15] PM: What would help you prioritize?
+
+[01:20] Priya: Trend arrows. I don't care if someone's score is 65 — I care if they dropped from 85 to 65 in two weeks. Show me the delta, not just the snapshot.
+
+[02:00] Priya: Let me try filtering. I want "accounts with declining health in the last 14 days." The filter options are: "Health Score > X" and "Health Score < X." No trend filter. I can't do what I need.
+
+[02:45] Priya: Clicking into an account — "Acme Corp." I see their health score is 72. Below that are some metrics: login frequency, feature adoption, support tickets. But these are just numbers. I need context.
+
+[03:15] Priya: What I mean is — "3 support tickets this month" doesn't tell me if that's normal for them or a spike. If Acme Corp usually opens 1 ticket/month and they opened 3, that's a red flag. But if they always open 3, it's fine. I need baselines.
+
+[04:00] PM: That's very insightful. How does this compare to your current tool?
+
+[04:10] Priya: We use Gainsight, which costs us $500/month. It has baseline comparisons built in. Your tool is cheaper, but if I can't do baseline comparisons, I'm still going to need Gainsight.
+
+[05:00] Priya: Now I want to see a customer's journey. Like, what they've been doing in our product this week. I see a "Activity" tab… clicking… "No activity data available. Connect product analytics to enable." Wait, didn't we already connect our data source?
+
+[05:45] Priya: Oh — it says I need to connect a separate "Product Analytics" integration. So customer data comes from the CRM connection, but usage data needs a different integration? I assumed one connection gives me everything.
+
+[06:30] PM: That's been flagged before. Would a unified connection solve this?
+
+[06:40] Priya: Absolutely. My CS team is not technical. Asking them to set up two integrations is why we have 3 out of 8 team members actually using this tool. The rest gave up during setup.
+
+[07:30] PM: Does this tool replace any tool you're paying for today?
+
+[07:40] Priya: It could replace Gainsight ($500/month) and parts of our Intercom usage ($200/month) if the customer journey and health scoring were better. That's $700/month in savings. But right now it replaces nothing — it's an addition, not a replacement.
+
+[08:30] PM: Rating this workflow, 1 to 5?
+
+[08:40] Priya: A 2. Health scoring without trends is like a speedometer without knowing if you're accelerating or braking. The raw data is there but the intelligence layer is missing.
+
+Key Insights for Product Manager
+Friction Point 1 (Health Score Trends): Scores shown as snapshots, not trends. Action: Add 14-day trend arrows and delta values.
+
+Friction Point 2 (Context/Baselines): Raw metrics without per-account baselines make prioritization impossible. Action: Compute rolling baselines and flag anomalies.
+
+Friction Point 3 (Integration Fragmentation): CRM and product analytics require separate integrations. Action: Unify into single connection flow.
+
+Bottom Line Impact: $700/month replacement opportunity (Gainsight + partial Intercom). Only 3/8 CS team members active due to setup complexity — simpler onboarding = 2.6x activation.

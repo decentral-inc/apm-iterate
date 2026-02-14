@@ -1,0 +1,58 @@
+
+Usability Test: Engagement Data & Cohort Analysis
+
+Session Context
+
+Goal: Test the analytics and insights discovery experience for a Growth Lead exploring user engagement patterns.
+
+Participant Profile: "Chris" (31, Growth Lead at a 80-person SaaS company).
+
+Interviewer: Product Manager (PM).
+
+Duration: Condensed representation of a 22-minute session.
+
+Transcript: Analytics & Insights Discovery Test
+[00:00] PM: Chris, your job is to find actionable engagement insights today. Use the tool however you naturally would and think out loud.
+
+[00:30] Chris: Alright. I'm on the analytics page. I see an overview with total users, DAU, WAU, MAU. Good starting point. DAU is 2,300, MAU is 8,500. So our DAU/MAU ratio is 27%. That's actually below our target of 35%.
+
+[01:15] Chris: I want to see which user segment has the worst engagement. Is there a segmentation view? I see "Segments" in the sidebar. Clicking… okay, pre-built segments: "Enterprise," "Mid-Market," "SMB," "Free Tier."
+
+[01:50] Chris: I'll compare Enterprise vs SMB. Clicking Enterprise… DAU/MAU is 42%. Nice. SMB… 18%. Huge gap. But I already knew that intuitively. What I need is to understand WHY the gap exists.
+
+[02:30] Chris: Can I see what features Enterprise users use that SMB users don't? Is there a feature adoption comparison? I'm looking for something like "Feature used" by segment…
+
+[03:00] Chris: I don't see a feature comparison. There's "Top Features" which shows overall feature usage, but no breakdown by segment. This is where Mixpanel excels — I can do that in two clicks there.
+
+[03:40] PM: What would you need to see to answer the "why" question?
+
+[03:50] Chris: A feature adoption matrix. Rows are features, columns are segments. Each cell shows adoption percentage. Color-coded — green for high adoption, red for low. Then I can instantly see: "Ah, Enterprise uses 'Team Dashboards' at 78% but SMB is at 12%. That's the gap."
+
+[04:30] Chris: Let me try cohort analysis. I want to see Week 1 retention by signup month. Is there a cohort view? Searching… I see "Retention" in sidebar. Clicking…
+
+[05:00] Chris: It shows overall retention: Day 1 is 65%, Day 7 is 40%, Day 30 is 22%. That's useful but generic. I need cohort rows — January signups, February signups, etc. — to see if our recent changes improved retention.
+
+[05:45] Chris: No cohort table. This is a deal-breaker for my use case. Cohort analysis is literally the first thing I do every Monday morning. Without it, I'm staying on Mixpanel.
+
+[06:30] PM: What about export? Could you export data and build cohorts yourself?
+
+[06:40] Chris: Let me try export. I see a download button… CSV export. Clicked… "Export failed: too many rows. Upgrade to Pro for full exports." I'm on the Team plan. I can't even get my own data out?
+
+[07:15] Chris: That's frustrating. I understand pricing tiers, but gating data export feels punitive. At least let me export the aggregated view, not just raw data.
+
+[08:00] PM: What would make you recommend this to your team and consider replacing Mixpanel?
+
+[08:10] Chris: Cohort analysis, feature adoption by segment, and ungated CSV exports. If you had those three, I could justify dropping Mixpanel which costs us $300/month. Right now I'd use your tool as a supplement, but it can't be my primary analytics.
+
+[09:00] PM: Rating the analytics experience, 1 to 5?
+
+[09:10] Chris: A 2.5. The data is there, the UI is fast, and the pre-built segments are helpful. But the analysis tools are shallow. It feels like analytics-lite. For a $10/month tool, fine. For $89/month, I expect depth.
+
+Key Insights for Product Manager
+Friction Point 1 (Feature Adoption): No per-segment feature comparison. Action: Build feature adoption matrix with segment columns.
+
+Friction Point 2 (Cohort Analysis): Missing cohort retention table. Action: Prioritize cohort analysis view — it's a core workflow for growth teams.
+
+Friction Point 3 (Export Gating): CSV export blocked on Team plan. Action: Allow aggregated exports on all plans; gate only raw row-level exports.
+
+Bottom Line Impact: Mixpanel replacement opportunity: $300/month. Cohort analysis is a Monday-morning workflow — its absence makes the tool supplementary, not primary.

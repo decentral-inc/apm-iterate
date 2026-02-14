@@ -1,0 +1,62 @@
+
+Usability Test: SaaS Analytics Dashboard — First-Run Setup
+
+Session Context
+
+Goal: Evaluate the first-time experience of setting up an analytics dashboard for a Marketing Manager persona.
+
+Participant Profile: "Jordan" (28, Marketing Manager at a mid-size FinTech company, 60 employees).
+
+Interviewer: Product Manager (PM).
+
+Duration: Condensed representation of a 20-minute session.
+
+Transcript: Analytics Dashboard Setup Test
+[00:00] PM: Hi Jordan, thanks for joining. Today I'd like you to try setting up a new analytics dashboard as if you'd just signed up. Think out loud as you go!
+
+[00:30] Jordan: Sure! I'm on the home screen. I see "Create Your First Dashboard." Clicking that. Okay… it's asking me to "Choose a Template" or "Start from Scratch."
+
+[01:00] Jordan: I'll try "Choose a Template." There are like 15 templates here. Marketing Funnel, Sales Pipeline, Product Usage, Retention… okay not bad. But I don't understand what "PLG Metrics" means. Is that Product-Led Growth? Maybe label it better.
+
+[01:45] Jordan: Clicking "Marketing Funnel." Now it's asking me to "Connect a Data Source." Options are Segment, Mixpanel, Google Analytics, or CSV Upload.
+
+[02:15] Jordan: I'll click Google Analytics since that's what we use. OAuth screen… logging in… authorized. Now it says "Syncing data…" with a progress bar. That's nice.
+
+[02:50] Jordan: Okay, data synced. I see a dashboard with some charts already populated! But wait — all the numbers are from the last 7 days by default. I want to see last 30 days. Where's the date picker?
+
+[03:20] Jordan: Found it — it's tiny, in the top right corner. Almost missed it. For a dashboard tool, the date range should be more prominent.
+
+[04:00] PM: If you couldn't figure out how to set this up within 10 minutes, what would you do?
+
+[04:10] Jordan: Honestly? I'd cancel the trial and go back to my spreadsheet. There are too many tools out there. If it doesn't click immediately, I'm gone.
+
+[05:00] Jordan: Now I want to add a custom metric. Where do I do that? I see "Edit Dashboard" button. Clicking… okay there's a drag-and-drop editor. I'm dragging a "Metric Card" widget.
+
+[05:45] Jordan: It's asking me to pick a metric. The dropdown has like 200 options and no search functionality. I'm scrolling and scrolling… this is painful.
+
+[06:30] PM: What would make this easier?
+
+[06:35] Jordan: A search bar. Or better yet, suggest metrics based on my industry or template. You know I picked "Marketing Funnel" — show me marketing metrics first.
+
+[07:30] Jordan: Found "Conversion Rate." Added it. But the number showing is 0.0%. That can't be right. Oh wait, I think I need to configure it — define what "conversion" means for my app. Where's that setting?
+
+[08:15] Jordan: I literally cannot find where to define conversion events. I'm clicking the metric card, right-clicking… nothing. Let me try the settings gear… Nope, that's app settings, not metric settings.
+
+[09:00] PM: That's really helpful. Let me ask — if this tool worked perfectly, would it replace any tool you're currently paying for?
+
+[09:15] Jordan: Definitely could replace our Mixpanel subscription, which is $150/month. And maybe some of our Looker usage too. But only if I can actually configure these metrics without needing an engineer.
+
+[10:00] Jordan: Okay I found it — you have to go to Settings > Events > Define Conversions. That's three levels deep. This should be accessible from the metric card itself.
+
+[11:30] PM: How would you rate this setup experience so far, 1 to 5?
+
+[11:40] Jordan: A 2.5. The templates are great, the data sync was fast, but the metric configuration is a deal-breaker. If I have to read docs to set up basic metrics, I'm not going to recommend this to my team.
+
+Key Insights for Product Manager
+Friction Point 1 (Discoverability): Template names use jargon ("PLG Metrics") that some users don't recognize. Action: Use plain language or add tooltips.
+
+Friction Point 2 (Metric Configuration): Defining custom metrics is buried 3 levels deep. Action: Allow inline configuration from the metric card.
+
+Friction Point 3 (Search UX): 200+ metrics with no search or filtering. Action: Add search, categorization, and smart suggestions based on template.
+
+Bottom Line Impact: Jordan would cancel trial within 10 minutes if setup isn't intuitive. Mixpanel replacement opportunity: $150/month per customer.

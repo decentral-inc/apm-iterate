@@ -1,4 +1,4 @@
-# 🧠 AI Product Intelligence System
+# 🧠 APM System
 
 > Multi-agent AI system for product-led growth teams. Single-service Python backend (FastAPI + SQLite) with a React frontend. No Docker required.
 

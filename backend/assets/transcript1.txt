@@ -1,0 +1,94 @@
+
+This mock transcript simulates a moderated usability test for a mobile financial app. It focuses on the "Think Aloud" protocol, where the user verbalizes their thoughts, feelings, and confusion in real-time.
+
+Session Context
+
+Goal: Identify friction points in the "New User" Onboarding Flow (Sign-up → KYC → First Deposit).
+
+Participant Profile: "Alex" (30s, tech-savvy but cautious with money).
+
+Interviewer: Product Manager (PM).
+
+Duration: Condensed representation of a 25-minute session.
+
+Transcript: Financial App Onboarding Usability Test
+[00:00] PM: Thanks for joining, Alex. As I mentioned, I’m going to ask you to use this prototype as if you were signing up for the first time. The most important thing is to think out loud. If you’re reading something, read it out loud. If you’re confused or annoyed, please tell me. There are no wrong answers. Ready?
+
+[00:45] Alex: Ready. Okay, I’ve opened the app. I’m seeing the landing page. It says "Bank smarter, not harder." The visuals are nice, very clean blue. There are two buttons: "Log In" and "Get Started."
+
+[01:10] Alex: I’m clicking "Get Started." Okay... it’s asking for my phone number immediately.
+
+[01:15] PM: What are you thinking right now?
+
+[01:20] Alex: [Pause] Honestly? I’m a little hesitant. I usually expect to seit more value proposition before I give my number. Like, is this going to spam me? But... it’s a finance app, so I guess it’s for security. I’m typing in my number... 555-0199.
+
+[01:50] Alex: Okay, "Enter the 6-digit code sent to your phone." Waiting... Waiting... Okay, got it. Typing it in.
+
+[02:15] Alex: New screen. "Create your secure password." It says it needs 8 characters, one symbol, one uppercase. Standard stuff. [Typing]
+
+[03:00] Alex: Whoa, okay. I just hit "Next" and it gave me an error in red text: "Password cannot contain sequential numbers." I didn't know that was a rule. It wasn't listed in the bullet points below the box. That’s kind of annoying. I have to re-think my usual password now.
+
+[03:30] PM: How does that make you feel about the process?
+
+[03:35] Alex: Just a little slowed down. I feel like I'm doing work now. Okay, trying a new password... Accepted.
+
+[05:10] Alex: Okay, now I’m on a screen titled "Let’s get to know you." It’s asking for my full legal name and Date of Birth. This makes sense. I’m typing... "Alex... Chen..." Date of birth...
+
+[05:45] Alex: [Sighs]
+
+[05:50] PM: I heard a sigh there. What’s going on?
+
+[05:52] Alex: It’s the date picker. It’s one of those scrolling wheels, but it started me in 2024. I have to scroll all the way back to 1992. Why can't I just type the numbers? It’s taking me like... ten swipes to get there. It feels clunky for a "modern" app.
+
+[07:20] Alex: Okay, done with the date. Next screen: "Verify your Identity." It wants me to scan my driver’s license. "Front and Back." Okay, I have my license here.
+
+[08:00] Alex: I pressed "Scan Front." The camera opened... aligning the box... [Muttering] "Hold steady..." It’s not capturing. The glare from the window is hitting it.
+
+[08:30] Alex: Okay, it captured. But... wait. It says "Could not read text. Please try again."
+
+[08:45] PM: What are you thinking now?e a b
+
+[08:48] Alex: I’m thinking this is the part where I usually quit apps if I'm not super motivated. It’s finicky. I’ll try one more time. Moving to a darker spot on the desk... Okay, it snapped. Now the back... That one worked fast.
+
+[10:15] Alex: Processing... Processing... It’s a spinning wheel. It’s been about 20 seconds. I’m wondering if it froze. There’s no text telling me how long this takes. Is it checking a database? Is it uploading?
+
+[11:00] Alex: Okay, finally! "Identity Verified." That was a relief. I was worried I’d have to do it again.
+
+[12:30] Alex: Next screen: "Fund your account." It gives me options: "Link Bank Account (Plaid)" or "Wire Transfer."
+
+[13:00] Alex: I’ll choose "Link Bank Account." It feels easier. I’m searching for "Chase"... clicking it... logging in... Okay, success.
+
+[14:15] Alex: Now it’s asking: "How much do you want to transfer for your initial deposit?" The default is set to $100.
+
+[14:30] Alex: I’m going to change this to $20. I don't trust the app fully yet to drop $100 instantly. I’m trying to tap the field to edit...
+
+[14:50] Alex: [Confusion in voice] I can’t edit it? Oh, wait. I have to tap the little "X" to clear the $100 first? That wasn't clear. I was tapping the number and nothing happened. I thought it was a mandatory minimum for a second.
+
+[15:20] PM: That’s a great catch. You thought the $100 was mandatory?
+
+[15:25] Alex: Yeah, because the cursor didn't appear when I tapped the number. I had to delete the whole thing first. A little scary. Okay, typed $20. "Confirm Transfer."
+
+[16:40] Alex: "Success! Your money is on the way." And now... I’m on the home dashboard.
+
+[17:00] PM: Now that you’ve landed on the dashboard, what’s your first impression?
+
+[17:10] Alex: It’s pretty. But... I’m looking for my $20. It says "Total Balance: $0.00."
+
+[17:25] Alex: I’m a little stressed. Did the transfer fail? Oh, I see a tiny badge on the "Activity" tab. Let me click that. Okay, it says "Pending - $20."
+
+[17:50] Alex: I think on the home screen, it should probably show "Pending Balance" or something. Seeing $0.00 makes me feel like the last 5 minutes didn't work.
+
+[18:30] PM: That’s really helpful feedback. If you had to rate the difficulty of that onboarding from 1 (Easy) to 5 (Hard), what would you say?
+
+[18:40] Alex: Probably a 3. The password error and the ID scan were the hardest parts. And the $0 balance at the end was confusing.
+
+Key Insights for Product Manager
+Friction Point 1 (Password): Hidden constraints (sequential numbers) caused error fatigue. Action: validate proactively or list all rules upfront.
+
+Friction Point 2 (UI Component): Date picker scrolling is inefficient for DOB. Action: Allow manual numerical input.
+
+Friction Point 3 (Trust): Default deposit amount ($100) and lack of editability signaled a "forced" high deposit.
+
+Friction Point 4 (Post-Onboarding): "Zero State" dashboard caused anxiety because pending funds weren't visible on the main card.
+
+Would you like me to analyze these pain points to generate a Product Requirements Document (PRD) or a prioritized Jira backlog?

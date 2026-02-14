@@ -1,136 +1,183 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import type { AgentEvent } from '../api/client'
-
-interface AgentState {
-  agent: string
-  label: string
-  status: 'waiting' | 'thinking' | 'done'
-  message: string
-  thinking: string[]
-  currentThought: number
-  summary: string
-  elapsed_s: number
-}
 
 interface Props {
   events: AgentEvent[]
   visible: boolean
 }
 
+interface AgentState {
+  name: string
+  label: string
+  message: string
+  thinkingSteps: string[]
+  status: 'waiting' | 'running' | 'done'
+  summary: string | null
+  elapsed: number | null
+  thinkingIndex: number
+}
+
 const AGENT_ORDER = ['icp_agent', 'segmentation_agent', 'messaging_agent', 'critic_agent']
-const AGENT_ICONS: Record<string, string> = {
-  icp_agent: '🎯',
-  segmentation_agent: '📊',
-  messaging_agent: '💬',
-  critic_agent: '🧑‍⚖️',
+const AGENT_DEFAULT: Record<string, { label: string; message: string }> = {
+  icp_agent: { label: 'ICP Agent', message: 'Building ideal customer profiles…' },
+  segmentation_agent: { label: 'Segmentation Agent', message: 'Segmenting user base by behavior…' },
+  messaging_agent: { label: 'Messaging Agent', message: 'Crafting competitive messaging strategy…' },
+  critic_agent: { label: 'Critic Agent', message: 'Reviewing brief for quality & gaps…' },
 }
 
 export default function AgentProgress({ events, visible }: Props) {
-  const [agents, setAgents] = useState<Record<string, AgentState>>({})
+  const [agents, setAgents] = useState<Record<string, AgentState>>(() => buildInitial())
   const [currentPhase, setCurrentPhase] = useState(0)
+  const [phaseLabel, setPhaseLabel] = useState('')
+  const [composeDone, setComposeDone] = useState(false)
+  const intervalRefs = useRef<Record<string, ReturnType<typeof setInterval>>>({})
 
-  useEffect(() => {
-    const state: Record<string, AgentState> = {}
-
-    for (const ev of events) {
-      if (ev.event === 'phase_start' && ev.phase) {
-        setCurrentPhase(ev.phase)
-      }
-
-      if (ev.event === 'agent_start' && ev.agent) {
-        state[ev.agent] = {
-          agent: ev.agent,
-          label: ev.label || ev.agent,
-          status: 'thinking',
-          message: ev.message || '',
-          thinking: ev.thinking || [],
-          currentThought: 0,
-          summary: '',
-          elapsed_s: 0,
-        }
-      }
-
-      if (ev.event === 'agent_complete' && ev.agent) {
-        if (state[ev.agent]) {
-          state[ev.agent].status = 'done'
-          state[ev.agent].summary = ev.summary || ''
-          state[ev.agent].elapsed_s = ev.elapsed_s || 0
-        }
+  function buildInitial(): Record<string, AgentState> {
+    const m: Record<string, AgentState> = {}
+    for (const name of AGENT_ORDER) {
+      m[name] = {
+        name,
+        label: AGENT_DEFAULT[name].label,
+        message: AGENT_DEFAULT[name].message,
+        thinkingSteps: [],
+        status: 'waiting',
+        summary: null,
+        elapsed: null,
+        thinkingIndex: -1,
       }
     }
+    return m
+  }
 
-    setAgents({ ...state })
-  }, [events])
-
-  // Animate thinking steps
+  // Process incoming events
   useEffect(() => {
-    const interval = setInterval(() => {
-      setAgents(prev => {
-        const next = { ...prev }
-        let changed = false
-        for (const key of Object.keys(next)) {
-          if (next[key].status === 'thinking' && next[key].thinking.length > 0) {
-            const newThought = (next[key].currentThought + 1) % next[key].thinking.length
-            if (newThought !== next[key].currentThought) {
-              next[key] = { ...next[key], currentThought: newThought }
-              changed = true
-            }
+    if (events.length === 0) {
+      setAgents(buildInitial())
+      setCurrentPhase(0)
+      setComposeDone(false)
+      return
+    }
+    const last = events[events.length - 1]
+    setAgents(prev => {
+      const next = { ...prev }
+      for (const ev of events) {
+        if (ev.event === 'phase_start') {
+          setCurrentPhase(ev.phase || 0)
+          setPhaseLabel(ev.label || '')
+        }
+        if (ev.event === 'agent_start' && ev.agent && next[ev.agent]) {
+          next[ev.agent] = {
+            ...next[ev.agent],
+            status: 'running',
+            label: ev.label || next[ev.agent].label,
+            message: ev.message || next[ev.agent].message,
+            thinkingSteps: ev.thinking || [],
+            thinkingIndex: -1,
           }
         }
-        return changed ? next : prev
-      })
-    }, 1500)
-    return () => clearInterval(interval)
-  }, [])
+        if (ev.event === 'agent_complete' && ev.agent && next[ev.agent]) {
+          next[ev.agent] = {
+            ...next[ev.agent],
+            status: 'done',
+            summary: ev.summary || 'Done',
+            elapsed: ev.elapsed_s || null,
+          }
+        }
+        if (ev.event === 'compose_complete') {
+          setComposeDone(true)
+        }
+      }
+      return next
+    })
+  }, [events])
+
+  // Animate thinking steps for running agents
+  useEffect(() => {
+    // Clear previous intervals
+    Object.values(intervalRefs.current).forEach(clearInterval)
+    intervalRefs.current = {}
+
+    for (const agent of Object.values(agents)) {
+      if (agent.status === 'running' && agent.thinkingSteps.length > 0) {
+        const tick = () => {
+          setAgents(prev => {
+            const a = prev[agent.name]
+            if (!a || a.status !== 'running') return prev
+            const nextIdx = a.thinkingIndex < a.thinkingSteps.length - 1 ? a.thinkingIndex + 1 : 0
+            return { ...prev, [agent.name]: { ...a, thinkingIndex: nextIdx } }
+          })
+        }
+        tick()
+        intervalRefs.current[agent.name] = setInterval(tick, 2200)
+      }
+    }
+    return () => Object.values(intervalRefs.current).forEach(clearInterval)
+  }, [agents.icp_agent?.status, agents.segmentation_agent?.status, agents.messaging_agent?.status, agents.critic_agent?.status])
 
   if (!visible) return null
 
+  const isComplete = events.some(e => e.event === 'complete')
+
   return (
-    <div className="agent-progress">
-      <div className="agent-progress-header">
-        <h3>🤖 Agent Pipeline</h3>
-        <span className="phase-badge">Phase {currentPhase}/4</span>
-      </div>
-
-      <div className="agent-cards">
-        {AGENT_ORDER.map((agentKey) => {
-          const a = agents[agentKey]
-          const icon = AGENT_ICONS[agentKey]
-          const isWaiting = !a
-          const isThinking = a?.status === 'thinking'
-          const isDone = a?.status === 'done'
-
-          return (
-            <div
-              key={agentKey}
-              className={`agent-card ${isThinking ? 'thinking' : ''} ${isDone ? 'done' : ''} ${isWaiting ? 'waiting' : ''}`}
-            >
-              <div className="agent-card-header">
-                <span className="agent-icon">{icon}</span>
-                <span className="agent-name">
-                  {a?.label || agentKey.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase())}
-                </span>
-                {isDone && (
-                  <span className="agent-time">{a.elapsed_s}s</span>
-                )}
-                {isThinking && <span className="agent-spinner" />}
-                {isWaiting && <span className="agent-waiting">⏳</span>}
-                {isDone && <span className="agent-check">✓</span>}
-              </div>
-
-              {isThinking && a.thinking.length > 0 && (
-                <div className="agent-thought">
-                  <span className="thought-dot" />
-                  {a.thinking[a.currentThought]}
-                </div>
-              )}
-
-              {isDone && a.summary && (
-                <div className="agent-summary">{a.summary}</div>
-              )}
+    <div className="agent-overlay">
+      <div className="agent-progress-panel">
+        <div className="agent-progress-header">
+          <h2>{isComplete ? '✅ Analysis Complete' : '🤖 AI Agents Working…'}</h2>
+          {currentPhase > 0 && !isComplete && (
+            <div className="phase-indicator">
+              Phase {currentPhase}/4 — {phaseLabel}
             </div>
-          )
-        })}
+          )}
+        </div>
+
+        {/* Phase progress bar */}
+        <div className="phase-bar">
+          {[1, 2, 3, 4].map(p => (
+            <div
+              key={p}
+              className={`phase-segment ${p < currentPhase ? 'done' : p === currentPhase ? 'active' : ''} ${isComplete ? 'done' : ''}`}
+            />
+          ))}
+        </div>
+
+        {/* Agent Cards */}
+        <div className="agent-cards">
+          {AGENT_ORDER.map(name => {
+            const a = agents[name]
+            if (!a) return null
+            const statusIcon = a.status === 'done' ? '✅' : a.status === 'running' ? '⚡' : '⏳'
+            const thinking = a.thinkingIndex >= 0 && a.thinkingIndex < a.thinkingSteps.length
+              ? a.thinkingSteps[a.thinkingIndex] : null
+
+            return (
+              <div key={name} className={`agent-card status-${a.status}`}>
+                <div className="agent-card-header">
+                  <span className="agent-status-icon">{statusIcon}</span>
+                  <span className="agent-label">{a.label}</span>
+                  {a.elapsed !== null && (
+                    <span className="agent-time">{a.elapsed.toFixed(1)}s</span>
+                  )}
+                </div>
+                <div className="agent-message">{a.message}</div>
+
+                {a.status === 'running' && thinking && (
+                  <div className="thinking-bubble">
+                    <span className="thinking-dots"><span>.</span><span>.</span><span>.</span></span>
+                    {thinking}
+                  </div>
+                )}
+
+                {a.status === 'done' && a.summary && (
+                  <div className="agent-summary">{a.summary}</div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+
+        {composeDone && !isComplete && (
+          <div className="compose-status">📝 Brief composed — running quality review…</div>
+        )}
       </div>
     </div>
   )

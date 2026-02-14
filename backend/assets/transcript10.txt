@@ -1,0 +1,62 @@
+
+Usability Test: Workflow Automation & Notification Setup
+
+Session Context
+
+Goal: Test the experience of setting up automated workflows and notifications for a Sales Operations user.
+
+Participant Profile: "Jamie" (30, Sales Operations Manager at a 100-person Mid-Market SaaS company).
+
+Interviewer: Product Manager (PM).
+
+Duration: Condensed representation of a 22-minute session.
+
+Transcript: Automation Setup Test
+[00:00] PM: Jamie, today I'd like you to set up an automated workflow. Specifically, set up an alert for when an account shows signs of disengagement so your team can intervene.
+
+[00:30] Jamie: Got it. I need a workflow that says: "When a user hasn't logged in for 7 days, send a Slack notification to their account owner." Let me find the automation builder.
+
+[01:00] Jamie: Sidebar > Automations. "Create New Automation." Okay, there's a visual builder with "Trigger" and "Action" blocks. That's nice — reminds me of Zapier.
+
+[01:30] Jamie: Setting up the trigger. Options are: "New User Created," "User Updated," "Deal Stage Changed," "Score Changed." I need "User Inactive for X Days." Is that here?
+
+[02:00] Jamie: I don't see an inactivity trigger. The closest is "User Updated" but that fires when data changes, not when someone goes silent. Inactivity is a non-event — the absence of activity.
+
+[02:30] PM: How would you work around this?
+
+[02:40] Jamie: I'd have to set up an external cron job that checks last_active timestamps and triggers a webhook. That defeats the purpose of having an automation builder. If HubSpot can do "Contact hasn't visited in 7 days," you should too.
+
+[03:15] Jamie: Let me try a different automation. "When a deal enters 'At Risk' stage, send Slack message." Trigger: Deal Stage Changed to "At Risk." That works!
+
+[03:45] Jamie: Now the Action. I pick "Send Slack Message." It asks for the channel. I type "#sales-alerts." And the message template… I can use variables: {{deal.name}}, {{deal.owner}}, {{deal.value}}. Nice.
+
+[04:15] Jamie: But I also want to chain a second action: "Create a task for the account owner to call the customer." I drag another Action block… but wait, I can't connect Action 1 to Action 2. It only allows Trigger → Action, not Trigger → Action → Action.
+
+[04:50] Jamie: So I can't chain actions? No conditional logic either? Like "IF deal value > $10K THEN escalate to VP, ELSE assign to rep"? This is a basic workflow requirement.
+
+[05:30] PM: How critical is action chaining for your team?
+
+[05:40] Jamie: It's the difference between "automation" and "notification." Without chaining and conditions, this is just a fancy notification system. We're paying for five Zapier zaps ($40/month) to do what your automation builder should do natively.
+
+[06:15] Jamie: Let me test what I have. Saving the automation. Running a test… "Test event sent." But where's the confirmation? I don't see a test result or log. Did the Slack message actually send?
+
+[06:50] Jamie: Checking Slack… no message. Going back to the automation… no error log, no test history. I literally can't tell if it worked or failed. This needs a test mode with real-time feedback.
+
+[07:30] PM: Would working automations save your team measurable time?
+
+[07:40] Jamie: Our sales ops team spends about 5 hours per week on manual notifications and task creation. With proper automation, that goes to zero. At $50/hour fully loaded cost, that's $250/week or $1,000/month in saved labor. If your tool could actually automate, it pays for itself 10x over.
+
+[08:15] Jamie: One more thing — I need automation analytics. Like, "This automation triggered 45 times last week, resulting in 12 customer calls." Without measuring the automation's impact, I can't justify keeping it on.
+
+[09:00] PM: Rating the automation experience, 1 to 5?
+
+[09:10] Jamie: A 2. The visual builder looks promising and the templates are the right idea. But without inactivity triggers, action chaining, conditional logic, and test mode, it's a prototype, not a feature. Ship those four things and it's a 4.
+
+Key Insights for Product Manager
+Friction Point 1 (Trigger Gaps): No inactivity/absence triggers. Action: Add "User Inactive for X Days" as a trigger option — it's the #1 use case for churn prevention.
+
+Friction Point 2 (Action Chaining): Can't connect multiple actions or add conditions. Action: Support multi-step workflows with IF/ELSE branching.
+
+Friction Point 3 (Test Mode): No test feedback or execution logs. Action: Add live test mode with real-time execution trace and history.
+
+Bottom Line Impact: $1,000/month labor savings potential per customer. $40/month Zapier replacement. Automation completeness determines whether tool is a notification sender or a real workflow engine.

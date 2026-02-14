@@ -63,6 +63,40 @@ export interface RecommendedAction {
   details: string;
 }
 
+export interface ProductRecommendation {
+  title: string;
+  description: string;
+  source: string;
+  impact: 'high' | 'medium' | 'low';
+  effort: 'high' | 'medium' | 'low';
+  category: string;
+  action_type: string;
+}
+
+export interface Interview {
+  id: number;
+  title: string;
+  participant: string;
+  role: string;
+  company_type: string;
+  date: string;
+  duration: string;
+  video_id: string;
+  focus: string;
+  has_transcript: boolean;
+  key_insights: { type: string; area: string; description: string; action: string | null }[];
+  pm_questions: { question: string; answer: string }[];
+  transcript_preview: string | null;
+  transcript?: string;
+}
+
+export interface EngagementData {
+  weekly_trends: { week: string; week_label: string; dau: number; wau: number; signups: number; churn: number; nps: number }[];
+  funnel: { stage: string; count: number; rate: number }[];
+  feature_adoption: { feature: string; enterprise: number; mid_market: number; smb: number; free: number }[];
+  segments: { name: string; users: number; revenue: number; dau_mau: number; health: number }[];
+}
+
 export interface AgentEvent {
   event: string;
   agent?: string;
@@ -73,7 +107,6 @@ export interface AgentEvent {
   elapsed_s?: number;
   phase?: number;
   agents?: string[];
-  // complete event
   brief?: any;
   brief_id?: string;
   confidence_score?: number;
@@ -105,9 +138,18 @@ export const fetchLatestBrief = () =>
 export const fetchUsers = () =>
   request<{ users: CrmUser[]; count: number }>('/users');
 
+export const fetchInterviews = () =>
+  request<{ interviews: Interview[]; count: number }>('/interviews');
+
+export const fetchInterview = (id: number) =>
+  request<Interview>(`/interviews/${id}`);
+
+export const fetchEngagementData = () =>
+  request<EngagementData>('/engagement-data');
+
 /**
  * SSE streaming brief generation.
- * Calls the callback for each event, returns when complete.
+ * Robustly handles large payloads split across chunks.
  */
 export async function generateBriefStream(
   onEvent: (event: AgentEvent) => void
@@ -131,21 +173,44 @@ export async function generateBriefStream(
     if (done) break;
 
     buffer += decoder.decode(value, { stream: true });
-    const lines = buffer.split('\n');
-    buffer = lines.pop() || '';
 
-    let currentData = '';
-    for (const line of lines) {
-      if (line.startsWith('data: ')) {
-        currentData = line.slice(6);
-        try {
-          const event = JSON.parse(currentData) as AgentEvent;
-          onEvent(event);
-        } catch {
-          // skip parse errors
+    // Process complete SSE messages (terminated by double newline)
+    const messages = buffer.split('\n\n');
+    buffer = messages.pop() || '';
+
+    for (const msg of messages) {
+      if (!msg.trim()) continue;
+      const dataLines: string[] = [];
+      for (const line of msg.split('\n')) {
+        if (line.startsWith('data: ')) {
+          dataLines.push(line.slice(6));
         }
-        currentData = '';
       }
+      if (dataLines.length > 0) {
+        const jsonStr = dataLines.join('\n');
+        try {
+          const event = JSON.parse(jsonStr) as AgentEvent;
+          onEvent(event);
+        } catch (e) {
+          console.warn('SSE parse error:', e);
+        }
+      }
+    }
+  }
+
+  // Flush remaining buffer
+  if (buffer.trim()) {
+    const dataLines: string[] = [];
+    for (const line of buffer.split('\n')) {
+      if (line.startsWith('data: ')) {
+        dataLines.push(line.slice(6));
+      }
+    }
+    if (dataLines.length > 0) {
+      try {
+        const event = JSON.parse(dataLines.join('\n')) as AgentEvent;
+        onEvent(event);
+      } catch { /* ignore */ }
     }
   }
 }

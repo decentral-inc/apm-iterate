@@ -1,0 +1,58 @@
+
+Usability Test: Enterprise CRM Migration from HubSpot
+
+Session Context
+
+Goal: Understand friction in migrating from a competitor CRM to our platform for an enterprise sales leader.
+
+Participant Profile: "Maria" (42, VP of Sales at a 500-person HealthTech company).
+
+Interviewer: Product Manager (PM).
+
+Duration: Condensed representation of a 30-minute session.
+
+Transcript: CRM Migration Experience Test
+[00:00] PM: Maria, thank you for your time. We'd like to understand your experience migrating from HubSpot to our platform. Walk me through what happened.
+
+[00:30] Maria: Sure. So we decided to switch because your pricing for enterprise was significantly better — about 40% less than HubSpot Enterprise. The feature set looked comparable in the demo.
+
+[01:15] Maria: The migration wizard started fine. It connected to our HubSpot account, pulled our contact list — 12,000 contacts. That took about 4 minutes. Reasonable.
+
+[02:00] Maria: But then came the field mapping screen. We have 35 custom fields in HubSpot. Your system only auto-mapped 8 of them. The rest I had to do manually.
+
+[02:45] PM: How long did the manual mapping take?
+
+[02:50] Maria: About 45 minutes. And three of our custom fields had no equivalent in your system. "Deal Confidence Score," "Champion Contact," and "Competitive Threat Level." These are critical for our sales process.
+
+[03:30] Maria: I tried creating custom fields, but the custom field builder only supports text, number, and date types. We need dropdown menus and multi-select. Those apparently require the Enterprise Plus plan — which nobody told us about during the demo.
+
+[04:30] PM: That's a significant gap. What would have happened if you'd known this upfront?
+
+[04:40] Maria: We might not have started the migration. Or we'd have budgeted for Enterprise Plus from the beginning. Finding this out mid-migration is the worst possible experience. My team had already started training.
+
+[05:30] Maria: The other big issue was deal history. We moved over deals, but the activity timeline — emails, calls, notes — came over as plain text blobs instead of threaded conversations. My reps couldn't tell what happened in which order.
+
+[06:30] PM: What would make you go back to HubSpot?
+
+[06:40] Maria: [Long pause] If this migration takes more than a week total, I'm going back. We calculated the cost of lost productivity during migration — it's about $8,000 per day for our team of 20 reps. A week of degraded performance is $40K.
+
+[07:45] PM: That's very concrete. What's the single thing we could fix to keep you?
+
+[07:55] Maria: Fix the activity timeline import. My reps live in the deal timeline. If that's broken, the whole product is broken for us. Everything else — custom fields, mapping — we can work around. But a broken timeline means our reps will just go back to HubSpot in their browser.
+
+[09:00] PM: If the migration went perfectly, how many seats would you purchase?
+
+[09:10] Maria: We budgeted for 25 seats at $120/month each. That's $36,000 ARR. And we have a sister company with another 15 seats that would follow if we succeed.
+
+[10:30] PM: How would you rate this migration experience, 1 to 5?
+
+[10:40] Maria: A 2. The wizard is polished but the actual data fidelity is poor. Demos sell dreams, migrations reveal truth.
+
+Key Insights for Product Manager
+Friction Point 1 (Custom Fields): Enterprise customers rely on custom field types (dropdowns, multi-select) that are paywalled without clear communication. Action: Disclose plan limitations during migration wizard.
+
+Friction Point 2 (Activity Timeline): Deal activity history imports as unstructured text. Action: Preserve threaded conversation format during CRM import.
+
+Friction Point 3 (Migration Time): Each day of degraded migration costs enterprise customers ~$8K in lost productivity. Action: Offer premium migration support with timeline guarantee.
+
+Bottom Line Impact: $36K ARR at stake for this account + $18K referral pipeline. Migration quality directly determines retention vs churn at Day 7.

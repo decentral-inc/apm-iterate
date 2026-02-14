@@ -151,6 +151,7 @@ def _compose_brief(
             "growth_hypotheses": messaging.get("growth_hypotheses", []),
         },
         "recommended_actions": seg_actions,
+        "product_recommendations": messaging.get("product_recommendations", []),
     }
     if feedback:
         brief["previous_feedback"] = feedback
@@ -230,6 +231,7 @@ async def orchestrate_stream(
     stats: dict | None = None,
     previous_brief: dict | None = None,
     feedback: str | None = None,
+    interview_context: str | None = None,
 ) -> AsyncGenerator[dict, None]:
     """
     Streaming orchestration pipeline — yields SSE-compatible events
@@ -309,6 +311,7 @@ async def orchestrate_stream(
         stats=stats,
         icp_result=json.dumps(icp_out["result"]),
         segmentation_result=json.dumps(seg_out["result"]),
+        interview_context=interview_context or "",
     )
     agent_outputs[msg_out["agent"]] = msg_out["result"]
     timing[msg_out["agent"]] = msg_out["elapsed_s"]

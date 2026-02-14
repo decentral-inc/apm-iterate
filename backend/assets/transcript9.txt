@@ -1,0 +1,62 @@
+
+Usability Test: Billing, Pricing & Plan Upgrade
+
+Session Context
+
+Goal: Evaluate the upgrade experience for a startup founder considering moving from free to paid tier.
+
+Participant Profile: "Pat" (38, Founder/CEO of a 5-person B2B SaaS startup).
+
+Interviewer: Product Manager (PM).
+
+Duration: Condensed representation of a 18-minute session.
+
+Transcript: Billing & Upgrade Experience Test
+[00:00] PM: Pat, you've been on the free tier for two weeks. I'd like you to walk through the upgrade process and tell me what you're thinking at each step.
+
+[00:30] Pat: Sure. I've hit the free tier limit — 100 tracked users. We have 250 users now so I actually need to upgrade. Let me find the pricing page. Settings > Billing.
+
+[01:00] Pat: Okay, three plans: Starter ($29/month), Growth ($89/month), Enterprise (custom). The free tier features are listed but they're grayed out so I can't read them easily. Let me compare what I get with Growth vs Starter…
+
+[01:40] Pat: This comparison table is confusing. There are 24 feature rows. I don't know what half of them mean. "Advanced attribution" — what is that? "Custom events" — how are those different from regular events? The tooltips say "Learn more" but they link to docs pages that take 30 seconds to load.
+
+[02:30] PM: What information do you actually need to make this decision?
+
+[02:40] Pat: Three things: How many users can I track? What's the biggest feature I'd lose on the cheaper plan? And is there a money-back guarantee? I shouldn't have to read 24 rows for a $29 vs $89 decision.
+
+[03:15] Pat: Okay, I'm going with Growth ($89/month) because it has "unlimited tracked users." Clicking "Upgrade." It's asking for my credit card. Typing in card details…
+
+[03:50] Pat: Wait — the default is annual billing. The monthly price shown is $89/month but it says "billed annually: $1,068." I almost committed to $1,068 without realizing it. Where's the monthly option?
+
+[04:20] Pat: Found it — there's a tiny toggle at the top of the page. Monthly is $119/month, not $89/month. So the $89 price is the annual price. The pricing page said "$89/month" without the asterisk for annual billing. That feels deceptive.
+
+[05:00] PM: How does that make you feel about the product?
+
+[05:10] Pat: Like I need to read the fine print. Which is the opposite feeling I want from a tool I'm trusting with my business data. Transparency in pricing builds trust. This erodes it.
+
+[05:45] Pat: I'm going with monthly at $119 because I'm not ready to commit annually. But $119 is steep for a 5-person startup. Entering card…
+
+[06:15] Pat: "Payment successful. Welcome to Growth!" Great. But now what? Nothing changed on my dashboard. I expected a "Here's what's new" moment — like, show me the features I just unlocked. Instead I'm looking at the same dashboard.
+
+[06:50] Pat: Let me check if I can track more users now. Going to settings… user limit says "Unlimited." Good. But I wish there was a more celebratory moment. I just gave you $119.
+
+[07:30] PM: What's your budget for this type of tool?
+
+[07:40] Pat: As a startup, $50 to $100 per month is my sweet spot. $119 is above that. If I don't see clear ROI within 30 days, I'll downgrade or cancel. You have 30 days to prove value.
+
+[08:15] PM: What would ROI look like for you?
+
+[08:25] Pat: If this tool helps me identify one user segment that converts better, and I can run a targeted campaign that brings in even 5 new paying customers at $50/month each, that's $250/month in new revenue. Then the $119/month is an easy yes.
+
+[09:00] PM: Rating the upgrade experience, 1 to 5?
+
+[09:10] Pat: A 2.5. The billing flow works, but the pricing presentation is misleading, the comparison is overwhelming, and the post-upgrade experience is a missed opportunity for engagement.
+
+Key Insights for Product Manager
+Friction Point 1 (Price Clarity): Annual pricing displayed as monthly without clear labeling. Action: Show both monthly and annual with clear toggle and no default.
+
+Friction Point 2 (Comparison Overload): 24-row feature comparison for 3 plans. Action: Simplify to top 5 differentiating features; use "What you'll get" framing.
+
+Friction Point 3 (Post-Upgrade Experience): No onboarding into new features after payment. Action: Show "Welcome to Growth" tour highlighting 3 newly unlocked features.
+
+Bottom Line Impact: Monthly churn risk at $119 — customer will evaluate ROI at Day 30. Misleading pricing erodes trust and increases refund requests. Post-upgrade onboarding determines feature adoption of paid-tier features.

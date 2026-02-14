@@ -1,0 +1,58 @@
+
+Usability Test: Mobile App Experience — On-the-Go Product Insights
+
+Session Context
+
+Goal: Evaluate mobile app usability for a Product Manager who needs quick data access during meetings.
+
+Participant Profile: "Sam" (35, Senior PM at a 200-person EdTech company).
+
+Interviewer: Product Manager (PM).
+
+Duration: Condensed representation of a 20-minute session.
+
+Transcript: Mobile App Usability Test
+[00:00] PM: Sam, for this test I'd like you to imagine you're walking into a stakeholder meeting and need to quickly pull up some metrics on your phone. Go ahead.
+
+[00:30] Sam: Okay, opening the app. First thing — the splash screen took 4 seconds. That's long for mobile. I'm in a hallway, I need this NOW.
+
+[01:00] Sam: Dashboard is loaded. I can see the main metrics but the text is tiny. I'm pinching to zoom… and the chart looks terrible when zoomed. The labels overlap.
+
+[01:30] Sam: I need to find our weekly active users number. Let me scroll… scrolling… there are way too many cards on this mobile view. On desktop this makes sense, but on mobile you need to prioritize.
+
+[02:10] PM: How would you prioritize the mobile view?
+
+[02:15] Sam: Show me three things: the one metric I care about most (which should be configurable), the trend arrow, and a comparison to last week. That's it. I can dig deeper on desktop.
+
+[03:00] Sam: Found the WAU number. 12,450. Great. Now my VP is going to ask "how does that compare to last month?" Let me try to change the time range…
+
+[03:30] Sam: The date picker is a full calendar view on mobile. It's overflowing the screen. I can't reach the "last 30 days" preset button because it's behind the calendar. Need to scroll within the modal within the app. This is bad.
+
+[04:15] PM: If you could only use the mobile app OR desktop, which would you choose?
+
+[04:20] Sam: Desktop, 100%. The mobile app feels like a shrunken desktop, not a mobile-first experience. I'd rather just text my analyst to send me a screenshot.
+
+[05:00] Sam: One more thing — I want to share this chart with my VP on Slack. Is there a share button? I see… no share button on mobile. On desktop I think there's an export. Let me try taking a screenshot instead.
+
+[05:30] Sam: Screenshot works but the dark theme makes it hard to read when shared. No one wants to read a dark-mode chart in a bright meeting room.
+
+[06:00] PM: What would make the mobile app worth using for you?
+
+[06:10] Sam: Three things: faster load time (under 2 seconds), a customizable "quick glance" home screen with just my top 3 metrics, and a one-tap share to Slack. If you nail those three, I'd use it daily. Right now I use it maybe once a month.
+
+[07:00] PM: How much does your company pay for this tool currently?
+
+[07:10] Sam: We're on the Team plan — $89/month for 10 seats. But honestly, only 3 people actively use it. If mobile worked better, I could see all 10 using it. That's better retention for you.
+
+[08:00] PM: Rating the mobile experience, 1 to 5?
+
+[08:10] Sam: A 1.5. It exists, but it doesn't serve any real mobile use case well. It's a checkbox feature, not a real mobile product.
+
+Key Insights for Product Manager
+Friction Point 1 (Load Time): 4-second splash screen kills urgency use cases. Action: Target <2s load with cached last-view.
+
+Friction Point 2 (Information Density): Desktop layout shrunken to mobile. Action: Build "Quick Glance" mode with top 3 configurable metrics.
+
+Friction Point 3 (Sharing): No mobile share button; dark theme unreadable in screenshots. Action: Add one-tap share with light-mode export option.
+
+Bottom Line Impact: Only 3/10 paid seats actively used. Better mobile = 3x activation rate. Load time directly correlates with DAU retention.

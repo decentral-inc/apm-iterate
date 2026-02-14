@@ -1,0 +1,60 @@
+
+Usability Test: API Integration & Developer Experience
+
+Session Context
+
+Goal: Evaluate the developer experience of integrating via API for a technical user building a data pipeline.
+
+Participant Profile: "Dev" (29, Senior Software Engineer at a DevTools startup, 40 employees).
+
+Interviewer: Product Manager (PM).
+
+Duration: Condensed representation of a 25-minute session.
+
+Transcript: API Integration Experience Test
+[00:00] PM: Dev, thanks for doing this. I'd like you to walk through setting up an API integration as if you're connecting our platform to your internal data pipeline.
+
+[00:30] Dev: No problem. Opening the docs… okay, docs.yourproduct.com. First impression — clean layout, nice sidebar navigation. I see "Authentication," "REST API," "Webhooks," "SDKs."
+
+[01:00] Dev: Starting with Authentication. API key-based auth. Creating a key… okay, one-click. Good. But the key is shown once and then hidden. You should let me copy it to clipboard with a button instead of making me select the text. Minor but annoying.
+
+[01:45] Dev: Making my first API call. `GET /api/v1/users`. Using curl… got a 200 response. Nice, fast. 120ms response time. The JSON structure looks clean.
+
+[02:15] Dev: Now I need to paginate. Let me check… the docs say "cursor-based pagination" but the example shows offset-based. Which is it? Looking at the response headers… there's a `X-Next-Cursor` header but also a `page` query param. This is confusing.
+
+[03:00] PM: How significant is that confusion for you?
+
+[03:05] Dev: Pretty bad actually. Inconsistent pagination is a sign that the API evolved without a clear contract. It makes me worry about breaking changes. I'd spend 30 minutes figuring this out instead of 5.
+
+[03:45] Dev: Moving to webhooks. I need to receive events when a user's engagement changes. Setting up a webhook endpoint… I see I can subscribe to events: `user.created`, `user.updated`, `engagement.changed`. Registering my URL.
+
+[04:30] Dev: Sent a test event… waiting… nothing. Checking my server logs… oh wait, the test payload has a completely different format than the documented payload. The test sends `{"test": true}` but real events would have `{"event": "user.created", "data": {...}}`. Why is the test event different from real events?
+
+[05:15] PM: That's a great catch. How would that affect your integration timeline?
+
+[05:20] Dev: I'd have to deploy, wait for a real event, debug, redeploy. What should take an hour becomes a full afternoon. Webhook testing needs to mirror production payloads exactly.
+
+[06:00] Dev: Okay, let me try the rate limits. Docs say "1000 requests/minute." I'm running a batch import script… 500 records… halfway through I get a 429. But wait, I've only made 200 requests. What?
+
+[06:45] Dev: Oh — it counts sub-resources too. Each user import triggers 3 internal calls apparently? But the docs say 1000 requests/minute, not "1000 equivalent operations." This is misleading.
+
+[07:30] PM: If the API experience were perfect, would your team upgrade to a higher plan for better API limits?
+
+[07:40] Dev: Absolutely. We need to sync 50,000 records daily. At current rate limits, that takes over 4 hours. If you offered 10x limits on the Pro plan, we'd upgrade immediately. That's basically our buy/build decision — $200/month for your Pro plan vs $2,000/month for an engineer to build something custom.
+
+[08:30] Dev: One more thing — your SDK. I see you have Python and JavaScript SDKs. Trying the Python one… `pip install yourproduct`… Installed. Importing… `from yourproduct import Client`. Nice. But the SDK version is 0.8.2 and the API is v1. Are they in sync?
+
+[09:15] Dev: Running my script with the SDK… it works but throws deprecation warnings for `list_users()`. It says to use `get_users()` instead. But the README still shows `list_users()`. Docs and SDK are out of sync.
+
+[10:00] PM: Developer experience rating, 1 to 5?
+
+[10:10] Dev: A 3. The fundamentals are solid — fast API, clean JSON, good SDK concept. But the inconsistencies (pagination, webhooks, rate limits, SDK docs) erode trust. For developer tools, trust is everything. Fix the consistency issues and this is a 4.5.
+
+Key Insights for Product Manager
+Friction Point 1 (API Consistency): Pagination docs contradict actual implementation (cursor vs offset). Action: Standardize on cursor-based, update all docs.
+
+Friction Point 2 (Webhook Testing): Test payloads don't match production. Action: Mirror real event payloads in test mode.
+
+Friction Point 3 (Rate Limits): Hidden sub-resource counting inflates usage. Action: Document actual counting methodology; surface usage in response headers.
+
+Bottom Line Impact: Upgrade decision to Pro plan ($200/month) blocked by rate limit confusion. Build-vs-buy decision favors our platform if dev trust is established. SDK inconsistency gives the impression of abandonment.
