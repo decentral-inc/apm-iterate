@@ -9,7 +9,13 @@ async function request<T>(url: string, opts?: RequestInit): Promise<T> {
   });
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new Error(body.detail || body.error || res.statusText);
+    const msg = body.detail ?? body.error ?? res.statusText;
+    if (res.status === 404) {
+      throw new Error(
+        `${msg}. Is the backend running on the port Vite proxies to (default 4000)? Try: cd backend && python main.py`
+      );
+    }
+    throw new Error(Array.isArray(msg) ? msg.join(' ') : msg);
   }
   return res.json();
 }

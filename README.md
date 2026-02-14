@@ -133,7 +133,7 @@ cd backend
 cp .env.example .env            # add your OPENAI_API_KEY
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-python main.py                  # → http://localhost:8000
+python main.py                  # → http://localhost:4000 (or 8000 if PORT not set in .env)
 ```
 
 
@@ -152,7 +152,25 @@ npm install
 npm run dev                     # → http://localhost:5173
 ```
 
-The Vite dev server proxies `/api` requests to `localhost:8000`.
+The Vite dev server proxies `/api` to the backend. **The proxy target must match your backend port.** In `vite.config.ts` the default is `http://localhost:4000` (set `VITE_API_URL` when starting the frontend to override).
+
+### Debugging frontend–backend connection
+
+1. **Backend must be running**  
+   In `backend/`: `source venv/bin/activate && python main.py`. You should see Uvicorn listening on the port (e.g. `http://0.0.0.0:4000`).
+
+2. **Ports must match**  
+   Backend port is set in `backend/.env` as `PORT=4000`. The frontend proxy in `vite.config.ts` targets `http://localhost:4000` by default. If you use a different `PORT`, set `VITE_API_URL=http://localhost:YOUR_PORT` when running `npm run dev`, or change the proxy target in `vite.config.ts`.
+
+3. **Test the backend directly**  
+   ```bash
+   curl http://localhost:4000/health
+   curl -X POST http://localhost:4000/api/mock-crm
+   ```
+   If these fail, fix the backend (e.g. install `greenlet`, fix DB URL) before debugging the frontend.
+
+4. **Browser Network tab**  
+   In DevTools → Network, check requests to `/api/...`. They should show as coming from the page origin (e.g. `localhost:5173`) with status 200 when the backend is up. 500 = backend error; connection refused = backend not running or wrong port.
 
 ---
 
@@ -162,7 +180,7 @@ The Vite dev server proxies `/api` requests to `localhost:8000`.
 Seeds the database with 100 signed-up users + 200 non-engaged leads.
 
 ```bash
-curl -X POST http://localhost:8000/api/mock-crm
+curl -X POST http://localhost:4000/api/mock-crm
 ```
 
 **Response:**
