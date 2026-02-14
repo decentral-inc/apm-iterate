@@ -4,11 +4,17 @@ Brief service — handles orchestration calls and DB persistence.
 
 from __future__ import annotations
 
+import json
+import logging
+from typing import AsyncGenerator
+
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
 from db.models import User, Brief
-from agents.orchestrator import orchestrate
+from agents.orchestrator import orchestrate, orchestrate_stream
+
+logger = logging.getLogger(__name__)
 
 
 async def _load_users(db: AsyncSession) -> list[dict]:
@@ -17,6 +23,7 @@ async def _load_users(db: AsyncSession) -> list[dict]:
     rows = result.scalars().all()
     return [
         {
+            "id": u.id,
             "email": u.email,
             "name": u.name,
             "company": u.company,
@@ -84,11 +91,44 @@ async def generate_brief(db: AsyncSession) -> Brief:
     return brief
 
 
+async def generate_brief_stream(db: AsyncSession) -> AsyncGenerator[str, None]:
+    """
+    Stream SSE events during brief generation.
+    Yields newline-delimited JSON events for each agent phase.
+    Persists the final brief to DB.
+    """
+    users = await _load_users(db)
+    stats = await _load_stats(db)
+
+    final_result = None
+
+    async for event in orchestrate_stream(users=users, stats=stats):
+        event_type = event.get("event", "info")
+
+        if event_type == "complete":
+            # Persist the brief
+            final_result = event
+            brief = Brief(
+                content=event["brief"],
+                summary=event["brief"].get("executive_summary", ""),
+                confidence_score=event["confidence_score"],
+                agent_outputs=event["agent_outputs"],
+            )
+            db.add(brief)
+            await db.commit()
+            await db.refresh(brief)
+
+            # Send complete event with brief ID
+            event["brief_id"] = brief.id
+            event["created_at"] = brief.created_at.isoformat() if brief.created_at else None
+
+        yield f"event: {event_type}\ndata: {json.dumps(event, default=str)}\n\n"
+
+
 async def regenerate_brief_with_feedback(
     db: AsyncSession, brief_id: str, feedback: str
 ) -> Brief:
     """Re-run agents with user feedback and link to parent brief."""
-    # Load parent brief
     parent = (
         await db.execute(select(Brief).where(Brief.id == brief_id))
     ).scalar_one_or_none()
@@ -126,3 +166,8 @@ async def get_latest_brief(db: AsyncSession) -> Brief | None:
 
 async def get_metrics(db: AsyncSession) -> dict:
     return await _load_stats(db)
+
+
+async def get_users(db: AsyncSession) -> list[dict]:
+    """Return all users for the user list component."""
+    return await _load_users(db)

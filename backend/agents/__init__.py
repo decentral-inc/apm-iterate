@@ -3,7 +3,7 @@ from .icp_agent import ICPAgent
 from .segmentation_agent import SegmentationAgent
 from .messaging_agent import MessagingAgent
 from .critic_agent import CriticAgent
-from .orchestrator import orchestrate
+from .orchestrator import orchestrate, orchestrate_stream
 
 __all__ = [
     "BaseAgent",
@@ -12,4 +12,5 @@ __all__ = [
     "MessagingAgent",
     "CriticAgent",
     "orchestrate",
+    "orchestrate_stream",
 ]

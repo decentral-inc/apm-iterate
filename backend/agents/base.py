@@ -11,10 +11,13 @@ Guarantees:
 from __future__ import annotations
 
 import json
+import logging
 import os
 import time
 from abc import ABC, abstractmethod
 from openai import AsyncOpenAI
+
+logger = logging.getLogger(__name__)
 
 _client: AsyncOpenAI | None = None
 
@@ -62,8 +65,10 @@ class BaseAgent(ABC):
             raw = resp.choices[0].message.content or "{}"
             result = json.loads(raw)
         except json.JSONDecodeError:
+            logger.warning("[%s] Failed to parse JSON response: %s", self.name, raw[:200])
             result = {"raw": raw}  # type: ignore[possibly-undefined]
         except Exception as e:
+            logger.error("[%s] Agent call failed: %s", self.name, e)
             result = {"error": str(e)}
 
         elapsed = round(time.time() - start, 2)
