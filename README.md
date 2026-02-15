@@ -301,9 +301,4 @@ The `CriticAgent` is also invoked during the feedback loop: user feedback is pas
 - **Feedback loop**: Users iterate on briefs. Critic processes feedback + previous output. Lineage tracked via `parent_brief_id`.
 - **Async all the way**: `aiosqlite` for DB, `AsyncOpenAI` for LLM calls, FastAPI async routes. No blocking.
 - **Zero setup DB**: SQLite auto-creates on startup. `POST /mock-crm` seeds data. No Postgres/Docker needed.
-
----
-
-## License
-
-MIT
+- 
